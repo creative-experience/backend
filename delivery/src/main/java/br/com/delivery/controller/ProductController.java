@@ -13,6 +13,7 @@ import java.util.UUID;
 @RequestMapping("/product")
 @AllArgsConstructor
 public class ProductController {
+
     private ProductService productService;
 
     @GetMapping
@@ -33,7 +34,7 @@ public class ProductController {
             productService.saveProduct(productModel);
         }
         catch (Exception e){
-            throw e;
+            throw new InternalError("Deu ruim o save");
         }
     }
 

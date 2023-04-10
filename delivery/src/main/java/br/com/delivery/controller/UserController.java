@@ -36,7 +36,7 @@ public class UserController {
             userService.saveUser(userModel);
         }
         catch (Exception e){
-            throw e;
+            throw new InternalError("Deu ruim o save");
         }
     }
 
@@ -44,13 +44,17 @@ public class UserController {
     public ResponseEntity<UserModel> login(@RequestBody UserModel userModel){
         Optional<UserModel> model = userService.login(userModel);
 
-      return   model == null ?
+      return  model.isEmpty() ?
               ResponseEntity.status(HttpStatus.UNAUTHORIZED).build() :
               ResponseEntity.ok(userModel);
     }
 
     @DeleteMapping
     public void deleteUser(@RequestParam UUID uuid){
+        try{
         userService.deleteUser(uuid);
+        }catch (Exception e){
+            throw new InternalError("Impossivel deletar o usuário");
+        }
     }
 }

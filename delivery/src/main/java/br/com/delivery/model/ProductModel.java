@@ -1,5 +1,4 @@
 package br.com.delivery.model;
-//////
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
