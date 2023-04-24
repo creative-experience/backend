@@ -42,4 +42,5 @@ public class ProductController {
     public void deleteProduct(@RequestParam UUID uuid){
         productService.deleteProduct(uuid);
     }
+
 }

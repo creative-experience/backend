@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Service
 @AllArgsConstructor
 public class ProductService {
+
     private ProductRepository productRepository;
 
     public List<ProductModel> findAll(){
@@ -27,7 +29,12 @@ public class ProductService {
 
     public void deleteProduct(UUID uuid) {
         if (productRepository.existsById(uuid)){
-            productRepository.deleteById(uuid);
+            try {
+                productRepository.deleteById(uuid);
+            }
+            catch (Exception e){
+                throw new InternalError("Impossivel deletar o produto");
+            }
         }
     }
 }

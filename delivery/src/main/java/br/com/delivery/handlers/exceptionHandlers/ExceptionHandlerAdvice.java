@@ -7,6 +7,7 @@ import org.springframework.core.NestedExceptionUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -24,12 +25,12 @@ public class ExceptionHandlerAdvice {
 		return new ResponseEntity<>(new errorResponse(false, message), HttpStatus.CONFLICT);
 	}
 	
-//	@ExceptionHandler(AccessDeniedException.class)
-//	public ResponseEntity<errorResponse> accessDenied(AccessDeniedException ex){
-//		String message = ex.getMessage();
-//		
-//		return new ResponseEntity<errorResponse>(new errorResponse(false, message), HttpStatus.FORBIDDEN);
-//	}
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<errorResponse> accessDenied(AccessDeniedException ex){
+		String message = ex.getMessage();
+
+		return new ResponseEntity<errorResponse>(new errorResponse(false, message), HttpStatus.FORBIDDEN);
+	}
 	
 	@ExceptionHandler(ValidationException.class)
 	public ResponseEntity<errorResponse> validationException(ValidationException ex){
@@ -59,9 +60,8 @@ public class ExceptionHandlerAdvice {
 		String message = NestedExceptionUtils.getMostSpecificCause(ex).getMessage();
 		
 		if(message.contains(DETAIL)) {
-			message = message.substring(message.indexOf(DETAIL)+DETAIL.length());
+			message = message.substring(message.indexOf(DETAIL) + DETAIL.length());
 		}
-		
 		return message;
 	}
 }
