@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: finance-and-stock
+  devtools:
+    add-properties: true
+    remote:
+      restart:
+        enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/financestockdb?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password: root
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQLDialect
+      open-in-view: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    version: openapi_3_0
+  swagger-ui:
+    path: /swagger-ui.html
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+logging:
+  level:
+    web: debug

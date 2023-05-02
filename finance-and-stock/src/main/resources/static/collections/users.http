@@ -1,0 +1,16 @@
+### POST register
+POST http://localhost:8081/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Eduarda Grein",
+  "email": "eduarda.grein01@gmail.com",
+  "mobileNumber": "996183553",
+  "documentNumber": "12559893940",
+  "password": "123456",
+  "role": "user"
+}
+
+### GET list users
+GET http://localhost:8081/list-user?page=0&size=10&sort=ASC HTTP/1.1
+Authorization: jxgEQeXHuPq8VdbyYFNkANdudQ53YUn4
